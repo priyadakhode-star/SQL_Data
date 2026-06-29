@@ -1,0 +1,26 @@
+--All small to mid sized breed customers - Beagle, frenchie, toy poodle. Last 12 months
+
+select sid.bill_to_contact,pb."name",
+       sid.shipping_address_name as Customer_Name,pb.name,
+       sum(sid.p_amount) as Sales
+from sales_invoice_data sid 
+left join res_partner_pet rpp on rpp.partner_id=sid.customer_id 
+left join pet_breed pb on pb.id =rpp.breed 
+where sid.customer_type='Customer Sales'
+and sid.transaction_date >= '2025-06-26'
+and sid.parent_channel='retail'
+and sid.bill_to_contact !='NA'
+and sid.shipping_address_name not ilike '%default%'
+and (pb."name" ilike '%beagle%' or 
+     pb."name" ilike '%French%Bulldog%' or 
+     pb."name" ilike '%toy%poodle%')
+and  sid.bill_to_contact not in ('1111155555','1111122222',
+'1111111111','1112223331','1111222233','1234567890','0000000000','12311111')
+group by sid.bill_to_contact ,Customer_Name
+having sum(sid.p_amount)>0 
+
+
+
+
+
+
