@@ -7,7 +7,7 @@ from sales_invoice_data sid
 left join res_partner_pet rpp on rpp.partner_id=sid.customer_id 
 left join pet_breed pb on pb.id =rpp.breed 
 where sid.customer_type='Customer Sales'
-and sid.transaction_date >= '2025-06-26'
+and sid.transaction_date >= '2026-01-26'
 and sid.parent_channel='retail'
 and sid.bill_to_contact !='NA'
 and sid.shipping_address_name not ilike '%default%'
